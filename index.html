@@ -61,9 +61,8 @@
 
         const restSec = Math.round(((curDate - resetDate) / 1000 % (36 * 60)) - 24);
 
-        let h = Math.floor(restSec / 90);
-        let m = Math.floor((restSec % 90) / 1.5);
-        m = checkTime(m);
+        let h = checkTime(Math.floor(restSec / 90));
+        let m = checkTime(Math.floor((restSec % 90) / 1.5));
         document.getElementById('clock').innerHTML = h + ":" + m;
         const emojiElement = document.getElementById('emoji');
         if (h >= 6 && h < 18) {
