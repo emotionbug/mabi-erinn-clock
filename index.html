@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>에린 시계</title>
+    <style>
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .clock-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .clock, .emoji {
+            display: inline-block;
+        }
+
+        .clock {
+            font-size: 60px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .emoji {
+            font-family: "Noto Color Emoji", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            font-size: 60px;
+        }
+
+        .smaller {
+            font-size: 20px;
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="clock-container">
+        <div id="emoji" class="emoji"></div>
+        <div id="clock" class="clock"></div>
+    </div>
+    <div class="smaller">에린 시계</div>
+</div>
+
+<script>
+    function startTime() {
+        const curDate = new Date();
+        const resetDate = new Date();
+        resetDate.setHours(0, 0, 0, 0);
+
+        const restSec = Math.round(((curDate - resetDate) / 1000 % (36 * 60)) - 24);
+
+        let h = Math.floor(restSec / 90);
+        let m = Math.floor((restSec % 90) / 1.5);
+        m = checkTime(m);
+        document.getElementById('clock').innerHTML = h + ":" + m;
+        const emojiElement = document.getElementById('emoji');
+        if (h >= 6 && h < 18) {
+            emojiElement.innerHTML = '☀️ ';
+        } else {
+            emojiElement.innerHTML = '🌙 ';
+        }
+        window.setTimeout(startTime, 250);
+    }
+
+    function checkTime(i) {
+        if (i < 10) {
+            i = "0" + i
+        }
+        return i;
+    }
+
+    startTime();
+</script>
+</body>
+</html>
